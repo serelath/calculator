@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator</title>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <!-- Display -->
+        <div class="row mb-2">
+            <div class="col-12 text-right round" id="display">
+                <p class="mb-1 mr-3 py-1">0</p>
+            </div>
+        </div>
+
+        <!-- Operators -->
+        <div class="row text-center operators">
+            <div class="col-3 py-1 round">
+                <p id="add" data-operator="+" class="mt-2 mb-2">+</p>
+            </div>
+            <div class="col-3 py-1 round">
+                <p id="subtract" data-operator="-" class="mt-2 mb-2">-</p>
+            </div>
+            <div class="col-3 py-1 round">
+                <p id="multiply" data-operator="*" class="mt-2 mb-2">×</p>
+            </div>
+            <div class="col-3 py-1 round">
+                <p id="divide" data-operator="/" class="mt-2 mb-2">÷</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-9">
+                <!-- Numbers -->
+                <div class="row text-center">
+                    <div class="col-4 py-1 round">
+                        <p id="7" class="mt-2 mb-2 numbers">7</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="8" class="mt-2 mb-2 numbers">8</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="9" class="mt-2 mb-2 numbers">9</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="4" class="mt-2 mb-2 numbers">4</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="5" class="mt-2 mb-2 numbers">5</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="6" class="mt-2 mb-2 numbers">6</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="1" class="mt-2 mb-2 numbers">1</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="2" class="mt-2 mb-2 numbers">2</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="3" class="mt-2 mb-2 numbers">3</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="0" class="mt-2 mb-2 numbers">0</p>
+                    </div>
+                
+                    <div class="col-4 py-1 round">
+                        <p id="decimal" class="mt-2 mb-2">.</p>
+                    </div>
+                    <div class="col-4 py-1 round">
+                        <p id="clear" class="mt-2 mb-2">C</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-3">
+
+                <div class="row text-center operators">
+                    <!-- MORE OPERATORS -->
+                    <div class="col-12 round">
+                        <p id="sqrt" data-operator="sqrt" class="mt-2 mb-2">√</p>
+                    </div>
+                    <div class="col-12 round">
+                        <p id="power" data-operator="^" class="mt-2 mb-2"><em>x</em></p>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <!-- ENTER CALCULATIONS -->
+                    <div class="col-12 round text-center" id="enter">
+                        <p id="clear" class="mt-2 mb-2">=</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
