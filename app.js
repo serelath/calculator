@@ -1,5 +1,6 @@
-var operatorMode, decimalMode;
+var display, operatorMode, decimalMode;
 
+display = document.querySelector('#display p');
 operatorMode = false;
 decimalMode = false;
 
@@ -36,26 +37,26 @@ var storeActions = (function() {
                 }
             }
 
-            console.log(data.numbers);
-
         },
 
         // Operators function
         operator: function(op) {
 
-            operatorMode = true;
-
-            // Add operator
             if (data.operator.length < data.numbers.length) {
-                if (op.getAttribute('data-operator' === 'sqrt')) {
+                operatorMode = true;
 
-                } else {
-                    data.operator.push(op.getAttribute('data-operator'));
+                // Add operator
+                if (data.operator.length < data.numbers.length) {
+                    if (op.getAttribute('data-operator' === 'sqrt')) {
+
+                    } else {
+                        data.operator.push(op.getAttribute('data-operator'));
+                    }
+                
+                // Switch Operator
+                } else if (data.operator.length = data.numbers.length) {
+                    data.operator[data.operator.length - 1] = op.getAttribute('data-operator');
                 }
-            
-            // Switch Operator
-            } else if (data.operator.length = data.numbers.length) {
-                data.operator[data.operator.length - 1] = op.getAttribute('data-operator');
             }
 
         },
@@ -89,6 +90,9 @@ var storeActions = (function() {
 
             console.log(showData);
             return showData;
+        },
+        returnNum: function() {
+            return data.numbers;
         }
 
     }
@@ -111,8 +115,6 @@ var controller = (function() {
 
     // When a NUMBER is clicked
     function clickNum() {
-        var display = document.querySelector('#display p');
-
         storeActions.addToStorage(this);
 
         display.innerHTML = storeActions.display();
@@ -121,15 +123,16 @@ var controller = (function() {
 
     // When an OPERATOR is clicked
     function operator() {
-        var display = document.querySelector('#display p');
-        
+
         storeActions.operator(this);
 
-        display.innerHTML = storeActions.display();
+        if (storeActions.returnNum() !== 0) {
+            display.innerHTML = storeActions.display();
+        }
+
+        
     }
     
-    
-
     return {
         init: function() {
             actions();
