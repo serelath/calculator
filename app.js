@@ -5,6 +5,7 @@ decimalMode = false;
 
 var storeActions = (function() {
 
+    // Where the numbers are stored
     var data = {
         numbers: [],
         currentNum: 0,
@@ -14,8 +15,10 @@ var storeActions = (function() {
 
     return {
   
+        // Add the numbers to storage
         addToStorage: function(num) {
 
+            // New Array within data.numbers with added number
             if (operatorMode) {
 
                 operatorMode = false;
@@ -24,6 +27,8 @@ var storeActions = (function() {
                 data.numbers[data.currentNum] = new Array(num.textContent);
 
             } else {
+
+                // Add numbers before next operator
                 if (!data.numbers[data.currentNum]) {
                     data.numbers[data.currentNum] = new Array(num.textContent);
                 } else {
@@ -32,32 +37,40 @@ var storeActions = (function() {
             }
 
             console.log(data.numbers);
-            // console.log(currentNum);
 
         },
 
+        // Operators function
         operator: function(op) {
 
             operatorMode = true;
 
+            // Add operator
             if (data.operator.length < data.numbers.length) {
                 if (op.getAttribute('data-operator' === 'sqrt')) {
 
                 } else {
                     data.operator.push(op.getAttribute('data-operator'));
                 }
+            
+            // Switch Operator
+            } else if (data.operator.length = data.numbers.length) {
+                data.operator[data.operator.length - 1] = op.getAttribute('data-operator');
             }
 
         },
 
+        // Display the numbers & operators
         display: function() {
             var showData = "";
 
+            // Sift through & separate numbers & operators
             for (var i = 0 ; i < data.numbers.length ; i++) {
                 for (var e = 0; e < data.numbers[i].length; e++) {
                     showData += data.numbers[i][e];
                 }
                 
+                // Visual operator display
                 switch(data.operator[i]) {
                     case "+":
                         showData += " + ";
@@ -83,9 +96,10 @@ var storeActions = (function() {
 })();
 
 
-
+// Control actions here
 var controller = (function() {
 
+    // Activation area
     var actions = function() {
         var numbers = document.querySelectorAll('.numbers');
         numbers.forEach(num => num.addEventListener('click', clickNum));
@@ -95,6 +109,7 @@ var controller = (function() {
 
     }
 
+    // When a NUMBER is clicked
     function clickNum() {
         var display = document.querySelector('#display p');
 
@@ -104,6 +119,7 @@ var controller = (function() {
 
     }
 
+    // When an OPERATOR is clicked
     function operator() {
         var display = document.querySelector('#display p');
         
@@ -123,15 +139,3 @@ var controller = (function() {
 })();
 
 controller.init();
-// 1. Click number: store & display
-
-// 2. Click on operator: display
-
-// 3. Click number: display
-
-// 4. Click equal: operate() & display
-
-// 5. Decimal: Get last number > decimal mode on > push decimal number to storage
-//      when operator clicked
-
-// 6. C pop last array number
