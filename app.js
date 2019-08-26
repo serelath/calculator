@@ -27,13 +27,28 @@ var storeActions = (function() {
                 data.currentNum++;
                 data.numbers[data.currentNum] = new Array(num.textContent);
 
+                // Compile into data.all
+                var reduceCurrentNum = data.numbers[data.currentNum].reduce((a, b) => {return a + b});
+                data.all.push(reduceCurrentNum);
+
             } else {
 
                 // Add numbers before next operator
                 if (!data.numbers[data.currentNum]) {
                     data.numbers[data.currentNum] = new Array(num.textContent);
+
+                    // Compile into data.all
+                    var reduceCurrentNum = data.numbers[data.currentNum].reduce((a, b) => {return a + b});
+                    data.all.push(reduceCurrentNum);
+                    console.log(data.numbers);
+                    
                 } else {
                     data.numbers[data.currentNum].push(num.textContent);
+
+                    // Compile into data.all
+                    var reduceCurrentNum = data.numbers[data.currentNum].reduce((a, b) => {return a + b});
+                    data.all.pop();
+                    data.all.push(reduceCurrentNum);
                 }
             }
 
@@ -57,6 +72,10 @@ var storeActions = (function() {
                 } else if (data.operator.length = data.numbers.length) {
                     data.operator[data.operator.length - 1] = op.getAttribute('data-operator');
                 }
+
+                // Compile into data.all
+                data.all.push(data.operator[data.operator.length - 1]);
+
             }
 
         },
@@ -66,7 +85,11 @@ var storeActions = (function() {
             var showData = "";
 
             // Sift through & separate numbers & operators
-            for (var i = 0 ; i < data.numbers.length ; i++) {
+            if (data.numbers.length > 0 ) {
+
+                showData = "";
+
+                for (var i = 0 ; i < data.numbers.length ; i++) {
                 for (var e = 0; e < data.numbers[i].length; e++) {
                     showData += data.numbers[i][e];
                 }
@@ -85,12 +108,51 @@ var storeActions = (function() {
                     case "/":
                         showData += " ÷ ";
                         break;
+                    }
+                }
+                return showData;
+            } else {
+                return "0";
+            }
+
+            
+        },
+
+        // Clear number
+        clear: function() {
+            if (data.all[data.all.length - 1] === 1 || data.all.length % 2 === 1) {
+
+                    data.numbers.pop();
+                    data.all.pop();
+
+                    if (data.currentNum > 0) {
+                        data.currentNum--;
+                    }
+
+            } else {
+                data.operator.pop();
+                data.all.pop();
+            }
+
+            display.innerHTML = this.display();
+        },
+
+        // Calculate Numbers
+        calculate: function() {
+            var addUp = "";
+
+            for (var i = 0; i < data.all.length; i++) {
+                for (var e = 0; e < data.all[i].length; e++) {
+                    addUp += data.all[i][e];
                 }
             }
 
-            console.log(showData);
-            return showData;
+            data.numbers = [eval(addUp)];
+            data.all = [eval(addUp)];
+            data.currentNum = 0;
+            this.display();
         },
+
         returnNum: function() {
             return data.numbers;
         }
@@ -111,12 +173,17 @@ var controller = (function() {
         var operators = document.querySelectorAll('.operators div p');
         operators.forEach(op => op.addEventListener('click', operator));
 
+        var clearBtn = document.querySelector('#clear');
+        clearBtn.addEventListener('click', clearNum);
+
+        var calculateAmt = document.querySelector('#enter');
+        calculateAmt.addEventListener('click', calculate);
+
     }
 
     // When a NUMBER is clicked
     function clickNum() {
         storeActions.addToStorage(this);
-
         display.innerHTML = storeActions.display();
 
     }
@@ -125,12 +192,20 @@ var controller = (function() {
     function operator() {
 
         storeActions.operator(this);
-
         if (storeActions.returnNum() !== 0) {
             display.innerHTML = storeActions.display();
         }
-
         
+    }
+
+    // Clear
+    function clearNum() {
+        storeActions.clear();
+    }
+
+    // Calculate Amount
+    function calculate() {
+        storeActions.calculate();
     }
     
     return {
