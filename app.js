@@ -1,4 +1,4 @@
-var display, operatorMode, decimalMode;
+var display, operatorMode, decimalMode; 
 
 display = document.querySelector('#display p');
 operatorMode = false;
