@@ -40,7 +40,6 @@ var storeActions = (function() {
                     // Compile into data.all
                     var reduceCurrentNum = data.numbers[data.currentNum].reduce((a, b) => {return a + b});
                     data.all.push(reduceCurrentNum);
-                    console.log(data.numbers);
                     
                 } else {
                     data.numbers[data.currentNum].push(num.textContent);
@@ -147,10 +146,13 @@ var storeActions = (function() {
                 }
             }
 
-            data.numbers = [eval(addUp)];
-            data.all = [eval(addUp)];
+            // Reset
+            data.numbers = [];
             data.currentNum = 0;
-            this.display();
+            data.operator = [];
+            data.all = [];
+
+            display.textContent = eval(addUp);
         },
 
         returnNum: function() {
